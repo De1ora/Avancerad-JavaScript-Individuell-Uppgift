@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import MainContent from './components/MainContent';
 import Latest from './components/Latest';
 import Footer from './components/Footer';
+import Toast from './components/Toast';
 
 export default function Blog(props) {
   return (
@@ -21,6 +22,7 @@ export default function Blog(props) {
         <Latest />
       </Container>
       <Footer />
+      <Toast />
     </AppTheme>
   );
 }

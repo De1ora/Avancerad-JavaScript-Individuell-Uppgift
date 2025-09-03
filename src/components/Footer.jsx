@@ -13,6 +13,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import SitemarkIcon from './SitemarkIcon';
+import Toast from './Toast';
 
 function Copyright() {
   return (
@@ -28,6 +29,34 @@ function Copyright() {
 }
 
 export default function Footer() {
+  const [email, setEmail] = React.useState('');
+  const [toastOpen, setToastOpen] = React.useState(false);
+  const [toastMessage, setToastMessage] = React.useState('');
+  const [toastSeverity, setToastSeverity] = React.useState('success');
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleSubscribe = (event) => {
+    event.preventDefault();
+    if (email.trim() === '') {
+      setToastMessage('Please fill out the input.');
+      setToastSeverity('error');
+      setToastOpen(true);
+    } else {
+      setToastMessage('Thanks for signing up for our newsletter! P.S. You won’t actually get any emails.. Ever.');
+      setToastSeverity('success');
+      setToastOpen(true);
+      setEmail('');
+    }
+  };
+
+  const handleToastClose = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setToastOpen(false);
+  };
+
   return (
     <React.Fragment>
       <Divider />
@@ -70,32 +99,37 @@ export default function Footer() {
                 Subscribe for weekly updates. No spams ever!
               </Typography>
               <InputLabel htmlFor="email-newsletter">Email</InputLabel>
-              <Stack direction="row" spacing={1} useFlexGap>
-                <TextField
-                  id="email-newsletter"
-                  hiddenLabel
-                  size="small"
-                  variant="outlined"
-                  fullWidth
-                  aria-label="Enter your email address"
-                  placeholder="Enter your email address"
-                  slotProps={{
-                    htmlInput: {
-                      autoComplete: 'off',
-                      'aria-label': 'Enter your email address',
-                    },
-                  }}
-                  sx={{ width: '250px' }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  sx={{ flexShrink: 0 }}
-                >
-                  Subscribe
-                </Button>
-              </Stack>
+              <form onSubmit={handleSubscribe}>
+                <Stack direction="row" spacing={1} useFlexGap>
+                  <TextField
+                    id="email-newsletter"
+                    hiddenLabel
+                    size="small"
+                    variant="outlined"
+                    fullWidth
+                    aria-label="Enter your email address"
+                    placeholder="Enter your email address"
+                    value={email}
+                    onChange={handleEmailChange}
+                    slotProps={{
+                      htmlInput: {
+                        autoComplete: 'off',
+                        'aria-label': 'Enter your email address',
+                      },
+                    }}
+                    sx={{ width: '250px' }}
+                  />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    sx={{ flexShrink: 0 }}
+                    type="submit"
+                  >
+                    Subscribe
+                  </Button>
+                </Stack>
+              </form>
             </Box>
           </Box>
           <Box
@@ -229,6 +263,12 @@ export default function Footer() {
           </Stack>
         </Box>
       </Container>
+      <Toast
+        open={toastOpen}
+        onClose={handleToastClose}
+        severity={toastSeverity}
+        message={toastMessage}
+      />
     </React.Fragment>
   );
 }
