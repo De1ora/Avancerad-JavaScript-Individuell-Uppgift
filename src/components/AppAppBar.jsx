@@ -54,22 +54,19 @@ export default function AppAppBar() {
             <Sitemark />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button variant="text" color="info" size="small">
-                Features
+                Featured
               </Button>
               <Button variant="text" color="info" size="small">
-                Testimonials
+                Contact Us
               </Button>
               <Button variant="text" color="info" size="small">
-                Highlights
+                Careers
               </Button>
               <Button variant="text" color="info" size="small">
-                Pricing
+                Author List
               </Button>
               <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                FAQ
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                Blog
+                Terms
               </Button>
             </Box>
           </Box>
@@ -80,11 +77,9 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            <Button color="primary" variant="text" size="small">
-              Sign in
-            </Button>
+            { /* Lägg in dynamiskt datum här! */ }
             <Button color="primary" variant="contained" size="small">
-              Sign up
+              Create Article
             </Button>
             <ColorModeIconDropdown />
           </Box>

@@ -49,7 +49,7 @@ export const navigationCustomizations = {
           },
         },
         ...theme.applyStyles('dark', {
-          background: gray[900],
+          background: gray[800],
           boxShadow:
             'hsla(220, 30%, 5%, 0.7) 0px 4px 16px 0px, hsla(220, 25%, 10%, 0.8) 0px 8px 16px -5px',
         }),
@@ -93,7 +93,7 @@ export const navigationCustomizations = {
           },
           [`&.${selectClasses.focused}`]: {
             outlineOffset: 0,
-            borderColor: gray[900],
+            borderColor: gray[800],
           },
           '&:before, &:after': {
             display: 'none',
@@ -107,7 +107,7 @@ export const navigationCustomizations = {
           display: 'flex',
           alignItems: 'center',
           '&:focus-visible': {
-            backgroundColor: gray[900],
+            backgroundColor: gray[800],
           },
         }),
       }),
@@ -198,7 +198,7 @@ export const navigationCustomizations = {
           borderColor: gray[200],
         },
         [`&.${tabClasses.selected}`]: {
-          color: gray[900],
+          color: gray[800],
         },
         ...theme.applyStyles('dark', {
           ':hover': {

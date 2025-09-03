@@ -11,15 +11,15 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/X';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import SitemarkIcon from './SitemarkIcon';
 
 function Copyright() {
   return (
     <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
       {'Copyright © '}
-      <Link color="text.secondary" href="https://mui.com/">
-        Sitemark
+      <Link color="text.secondary">
+        Now & Next
       </Link>
       &nbsp;
       {new Date().getFullYear()}
@@ -106,22 +106,22 @@ export default function Footer() {
             }}
           >
             <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-              Product
+              News
             </Typography>
             <Link color="text.secondary" variant="body2" href="#">
-              Features
+              Featured
             </Link>
             <Link color="text.secondary" variant="body2" href="#">
-              Testimonials
+              Global
             </Link>
             <Link color="text.secondary" variant="body2" href="#">
-              Highlights
+              Design
             </Link>
             <Link color="text.secondary" variant="body2" href="#">
-              Pricing
+              Environment
             </Link>
             <Link color="text.secondary" variant="body2" href="#">
-              FAQs
+              Engineering
             </Link>
           </Box>
           <Box
@@ -132,10 +132,13 @@ export default function Footer() {
             }}
           >
             <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-              Company
+              Support
             </Typography>
             <Link color="text.secondary" variant="body2" href="#">
-              About us
+              Contact us
+            </Link>
+            <Link color="text.secondary" variant="body2" href="#">
+              Author list
             </Link>
             <Link color="text.secondary" variant="body2" href="#">
               Careers
@@ -161,7 +164,10 @@ export default function Footer() {
               Privacy
             </Link>
             <Link color="text.secondary" variant="body2" href="#">
-              Contact
+              Accessibility
+            </Link>
+            <Link color="text.secondary" variant="body2" href="#">
+              Cookies
             </Link>
           </Box>
         </Box>
@@ -196,7 +202,7 @@ export default function Footer() {
             <IconButton
               color="inherit"
               size="small"
-              href="https://github.com/mui"
+              href="https://github.com/De1ora"
               aria-label="GitHub"
               sx={{ alignSelf: 'center' }}
             >
@@ -205,16 +211,16 @@ export default function Footer() {
             <IconButton
               color="inherit"
               size="small"
-              href="https://x.com/MaterialUI"
-              aria-label="X"
+              href="https://www.youtube.com/@De1ora"
+              aria-label="YouTube"
               sx={{ alignSelf: 'center' }}
             >
-              <TwitterIcon />
+              <YouTubeIcon />
             </IconButton>
             <IconButton
               color="inherit"
               size="small"
-              href="https://www.linkedin.com/company/mui/"
+              href="https://www.linkedin.com/in/lisa-f%C3%A4lth-347251258/"
               aria-label="LinkedIn"
               sx={{ alignSelf: 'center' }}
             >
