@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 
+// Latest = Här hamnar User created posts!! (ingen bild då heller!)
 const articleInfo = [
   {
     tag: 'Engineering',
