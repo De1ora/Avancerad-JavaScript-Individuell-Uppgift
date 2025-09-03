@@ -40,8 +40,16 @@ export default function Footer() {
 
   const handleSubscribe = (event) => {
     event.preventDefault();
+
+    setToastOpen(false);
+
+    setTimeout(() => {
     if (email.trim() === '') {
-      setToastMessage('Please fill out the input.');
+      setToastMessage('This field cannot be left blank');
+      setToastSeverity('error');
+      setToastOpen(true);
+    } else if (!email.includes('@')) {
+      setToastMessage('Please enter a valid email address');
       setToastSeverity('error');
       setToastOpen(true);
     } else {
@@ -50,6 +58,7 @@ export default function Footer() {
       setToastOpen(true);
       setEmail('');
     }
+  }, 100);
   };
 
   const handleToastClose = (event, reason) => {
