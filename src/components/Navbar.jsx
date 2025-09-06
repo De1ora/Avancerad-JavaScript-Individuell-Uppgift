@@ -5,10 +5,14 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Dialog from '@mui/material/Dialog';
 import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
-import Sitemark from './SitemarkIcon';
+import DialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
 import NavbarDate from './NavbarDate';
+import CreateArticleForm from './AddNewsForm';
 import { Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -26,8 +30,35 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   padding: '8px 12px',
 }));
 
+const StyledDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialog-paper': {
+    borderRadius: theme.shape.borderRadius * 2,
+    padding: 0,
+    maxWidth: '500px',
+    width: '100%',
+  },
+}));
+
+const CloseButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  right: 8,
+  top: 8,
+  color: theme.palette.text.secondary,
+}));
+
 export default function Navbar() {
+  const [showArticleForm, setShowArticleForm] = React.useState(false);
+
+  const handleCreateArticleClick = () => {
+    setShowArticleForm(true);
+  };
+
+  const handleCloseArticleForm = () => {
+    setShowArticleForm(false);
+  };
+
   return (
+    <>
     <AppBar
       position="fixed"
       enableColorOnDark
@@ -41,7 +72,7 @@ export default function Navbar() {
       <Container maxWidth="lg">
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            <Sitemark />
+            {/* <Sitemark /> LÄGG IN EGEN LOGGA HÄR!*/}
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button variant="text" color="info" size="small">
                 Featured
@@ -61,10 +92,15 @@ export default function Navbar() {
             </Box>
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2, alignItems: 'center' }}>
-            <Typography variant="body1" color="text.secondary"> 
+            <Typography variant="body1" color="text.secondary">
               <NavbarDate />
             </Typography>
-            <Button color="primary" variant="contained" size="small">
+            <Button 
+                color="primary" 
+                variant="contained" 
+                size="small"
+                onClick={handleCreateArticleClick}
+              >
               Create Article
             </Button>
             <ColorModeIconDropdown />
@@ -72,5 +108,20 @@ export default function Navbar() {
         </StyledToolbar>
       </Container>
     </AppBar>
+
+    <StyledDialog
+    open={showArticleForm}
+    onClick={handleCloseArticleForm}
+    maxWidth="sm"
+    fullWidth
+    >
+      <CloseButton onClick={handleCloseArticleForm}>
+        <CloseIcon />
+      </CloseButton>
+      <DialogContent sx={{ p: 0 }}>
+        <CreateArticleForm onClose={handleCloseArticleForm} />
+      </DialogContent>
+    </StyledDialog>
+    </>
   );
 }
