@@ -13,6 +13,7 @@ import NavbarDate from './NavbarDate';
 import CreateArticleForm from './AddNewsForm';
 import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import NowAndNextIcon from './NowNextIcon';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -73,6 +74,11 @@ export default function Navbar() {
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             {/* <Sitemark /> LÄGG IN EGEN LOGGA HÄR!*/}
+            <NowAndNextIcon
+            height='14'
+            width='100'
+            style={{ marginRight: '16px', marginLeft: '8px' }}
+            />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button variant="text" color="info" size="small">
                 Featured

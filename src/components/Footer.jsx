@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import SitemarkIcon from './SitemarkIcon';
+import NowAndNextIcon from './NowNextIcon';
 import Toast from './Toast';
 
 function Copyright() {
@@ -96,7 +96,10 @@ export default function Footer() {
             }}
           >
             <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
-              <SitemarkIcon />
+              <NowAndNextIcon 
+              width='270'
+              height='100'
+              />
               <Typography
                 variant="body2"
                 gutterBottom
