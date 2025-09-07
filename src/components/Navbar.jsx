@@ -34,7 +34,7 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
     borderRadius: theme.shape.borderRadius * 2,
     padding: 0,
-    maxWidth: '500px',
+    maxWidth: '600px',
     width: '100%',
   },
 }));
@@ -111,7 +111,7 @@ export default function Navbar() {
 
     <StyledDialog
     open={showArticleForm}
-    onClick={handleCloseArticleForm}
+    onClose={handleCloseArticleForm}
     maxWidth="sm"
     fullWidth
     >
