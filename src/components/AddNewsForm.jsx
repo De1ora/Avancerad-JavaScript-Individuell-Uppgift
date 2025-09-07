@@ -13,8 +13,6 @@ import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
 
 // Buggar: 
-// - Klickar du någonstans inom formuläret eller utanför så försvinner formuläret (även i input-fälten!!).
-// - UI:n är lite knasig, den har en scrollbar som jag gärna vill bli av med och är inte riktigt centrerad. 
 // - Överskott av funktioner som inte riktigt används, email validering, namn etc..
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -32,6 +30,8 @@ const NewsFormContainer = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(2),
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(4),
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
   },
   '&::before': {
     content: '""',
