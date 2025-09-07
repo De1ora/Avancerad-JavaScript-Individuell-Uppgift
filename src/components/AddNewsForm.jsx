@@ -16,156 +16,156 @@ import ColorModeSelect from '../shared-theme/ColorModeSelect';
 // - Överskott av funktioner som inte riktigt används, email validering, namn etc..
 
 const Card = styled(MuiCard)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignSelf: 'center',
-  width: '100%',
-  padding: theme.spacing(4),
-  gap: theme.spacing(2),
-  margin: 'auto',
-  boxShadow: 'none',
+    display: 'flex',
+    flexDirection: 'column',
+    alignSelf: 'center',
+    width: '100%',
+    padding: theme.spacing(4),
+    gap: theme.spacing(2),
+    margin: 'auto',
+    boxShadow: 'none',
 }));
 
 const NewsFormContainer = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(2),
-  [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(4),
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  '&::before': {
-    content: '""',
-    display: 'block',
-    position: 'absolute',
-    zIndex: -1,
-    inset: 0,
-    backgroundImage:
-      'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-    backgroundRepeat: 'no-repeat',
-    ...theme.applyStyles('dark', {
-      backgroundImage:
-        'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-    }),
-  },
+    padding: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(4),
+        paddingTop: theme.spacing(8),
+        paddingBottom: theme.spacing(8),
+    },
+    '&::before': {
+        content: '""',
+        display: 'block',
+        position: 'absolute',
+        zIndex: -1,
+        inset: 0,
+        backgroundImage:
+            'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
+        backgroundRepeat: 'no-repeat',
+        ...theme.applyStyles('dark', {
+            backgroundImage:
+                'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
+        }),
+    },
 }));
 
-export default function CreateArticleForm(props) { 
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-  const [nameError, setNameError] = React.useState(false);
-  const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+export default function CreateArticleForm(props) {
+    const [emailError, setEmailError] = React.useState(false);
+    const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
+    const [nameError, setNameError] = React.useState(false);
+    const [nameErrorMessage, setNameErrorMessage] = React.useState('');
 
-  const validateInputs = () => {
-    const email = document.getElementById('email');
-    const name = document.getElementById('name');
+    const validateInputs = () => {
+        const email = document.getElementById('email');
+        const name = document.getElementById('name');
 
-    let isValid = true;
+        let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
+        if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+            setEmailError(true);
+            setEmailErrorMessage('Please enter a valid email address.');
+            isValid = false;
+        } else {
+            setEmailError(false);
+            setEmailErrorMessage('');
+        }
 
-    if (!name.value || name.value.length < 1) {
-      setNameError(true);
-      setNameErrorMessage('Name is required.');
-      isValid = false;
-    } else {
-      setNameError(false);
-      setNameErrorMessage('');
-    }
+        if (!name.value || name.value.length < 1) {
+            setNameError(true);
+            setNameErrorMessage('Name is required.');
+            isValid = false;
+        } else {
+            setNameError(false);
+            setNameErrorMessage('');
+        }
 
-    return isValid;
-  };
+        return isValid;
+    };
 
-  const handleSubmit = (event) => {
-    if (nameError || emailError) {
-      event.preventDefault();
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-    });
-  };
+    const handleSubmit = (event) => {
+        if (nameError || emailError) {
+            event.preventDefault();
+            return;
+        }
+        const data = new FormData(event.currentTarget);
+        console.log({
+            name: data.get('name'),
+            lastName: data.get('lastName'),
+            email: data.get('email'),
+        });
+    };
 
-  return (
-    <AppTheme {...props}>
-      <CssBaseline enableColorScheme />
-      <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
-      <NewsFormContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
-          <Typography
-            component="h1"
-            variant="h4"
-            sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-          >
-            Create Article
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
-          >
-            <FormControl>
-              <FormLabel htmlFor="name">Title</FormLabel>
-              <TextField
-                autoComplete="name"
-                name="name"
-                required
-                fullWidth
-                id="name"
-                placeholder="Your article title"
-                error={nameError}
-                helperText={nameErrorMessage}
-                color={nameError ? 'error' : 'primary'}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="email">Content</FormLabel>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                placeholder="Type your article content here..."
-                name="email"
-                autoComplete="email"
-                variant="outlined"
-                error={emailError}
-                helperText={emailErrorMessage}
-              />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="email">Author</FormLabel>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                placeholder="Author name"
-                name="email"
-                autoComplete="email"
-                variant="outlined"
-                error={emailError}
-                helperText={emailErrorMessage}
-              />
-            </FormControl>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={validateInputs}
-            >
-              Publish Article
-            </Button>
-          </Box>
-        </Card>
-      </NewsFormContainer>
-    </AppTheme>
-  );
+    return (
+        <AppTheme {...props}>
+            <CssBaseline enableColorScheme />
+            <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
+            <NewsFormContainer direction="column" justifyContent="space-between">
+                <Card variant="outlined">
+                    <Typography
+                        component="h1"
+                        variant="h4"
+                        sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
+                    >
+                        Create Article
+                    </Typography>
+                    <Box
+                        component="form"
+                        onSubmit={handleSubmit}
+                        sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+                    >
+                        <FormControl>
+                            <FormLabel htmlFor="name">Title</FormLabel>
+                            <TextField
+                                autoComplete="name"
+                                name="name"
+                                required
+                                fullWidth
+                                id="name"
+                                placeholder="Your article title"
+                                error={nameError}
+                                helperText={nameErrorMessage}
+                                color={nameError ? 'error' : 'primary'}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel htmlFor="email">Content</FormLabel>
+                            <TextField
+                                required
+                                fullWidth
+                                id="email"
+                                placeholder="Type your article content here..."
+                                name="email"
+                                autoComplete="email"
+                                variant="outlined"
+                                error={emailError}
+                                helperText={emailErrorMessage}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel htmlFor="email">Author</FormLabel>
+                            <TextField
+                                required
+                                fullWidth
+                                id="email"
+                                placeholder="Author name"
+                                name="email"
+                                autoComplete="email"
+                                variant="outlined"
+                                error={emailError}
+                                helperText={emailErrorMessage}
+                            />
+                        </FormControl>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            onClick={validateInputs}
+                        >
+                            Publish Article
+                        </Button>
+                    </Box>
+                </Card>
+            </NewsFormContainer>
+        </AppTheme>
+    );
 }

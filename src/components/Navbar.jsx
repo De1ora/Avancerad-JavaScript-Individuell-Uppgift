@@ -60,74 +60,73 @@ export default function Navbar() {
 
   return (
     <>
-    <AppBar
-      position="fixed"
-      enableColorOnDark
-      sx={{
-        boxShadow: 0,
-        bgcolor: 'transparent',
-        backgroundImage: 'none',
-        mt: 'calc(var(--template-frame-height, 0px) + 28px)',
-      }}
-    >
-      <Container maxWidth="lg">
-        <StyledToolbar variant="dense" disableGutters>
-          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            {/* <Sitemark /> LÄGG IN EGEN LOGGA HÄR!*/}
-            <NowAndNextIcon
-            height='14'
-            width='100'
-            style={{ marginRight: '16px', marginLeft: '8px' }}
-            />
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button variant="text" color="info" size="small">
-                Featured
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Contact Us
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Careers
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Author List
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                Terms
-              </Button>
+      <AppBar
+        position="fixed"
+        enableColorOnDark
+        sx={{
+          boxShadow: 0,
+          bgcolor: 'transparent',
+          backgroundImage: 'none',
+          mt: 'calc(var(--template-frame-height, 0px) + 28px)',
+        }}
+      >
+        <Container maxWidth="lg">
+          <StyledToolbar variant="dense" disableGutters>
+            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
+              <NowAndNextIcon
+                height='14'
+                width='100'
+                style={{ marginRight: '16px', marginLeft: '8px' }}
+              />
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <Button variant="text" color="info" size="small">
+                  Featured
+                </Button>
+                <Button variant="text" color="info" size="small">
+                  Contact Us
+                </Button>
+                <Button variant="text" color="info" size="small">
+                  Careers
+                </Button>
+                <Button variant="text" color="info" size="small">
+                  Author List
+                </Button>
+                <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
+                  Terms
+                </Button>
+              </Box>
             </Box>
-          </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2, alignItems: 'center' }}>
-            <Typography variant="body1" color="text.secondary">
-              <NavbarDate />
-            </Typography>
-            <Button 
-                color="primary" 
-                variant="contained" 
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2, alignItems: 'center' }}>
+              <Typography variant="body1" color="text.secondary">
+                <NavbarDate />
+              </Typography>
+              <Button
+                color="primary"
+                variant="contained"
                 size="small"
                 onClick={handleCreateArticleClick}
               >
-              Create Article
-            </Button>
-            <ColorModeIconDropdown />
-          </Box>
-        </StyledToolbar>
-      </Container>
-    </AppBar>
+                Create Article
+              </Button>
+              <ColorModeIconDropdown />
+            </Box>
+          </StyledToolbar>
+        </Container>
+      </AppBar>
 
-    <StyledDialog
-    open={showArticleForm}
-    onClose={handleCloseArticleForm}
-    maxWidth="sm"
-    fullWidth
-    >
-      <CloseButton onClick={handleCloseArticleForm}>
-        <CloseIcon />
-      </CloseButton>
-      <DialogContent sx={{ p: 0 }}>
-        <CreateArticleForm onClose={handleCloseArticleForm} />
-      </DialogContent>
-    </StyledDialog>
+      <StyledDialog
+        open={showArticleForm}
+        onClose={handleCloseArticleForm}
+        maxWidth="sm"
+        fullWidth
+      >
+        <CloseButton onClick={handleCloseArticleForm}>
+          <CloseIcon />
+        </CloseButton>
+        <DialogContent sx={{ p: 0 }}>
+          <CreateArticleForm onClose={handleCloseArticleForm} />
+        </DialogContent>
+      </StyledDialog>
     </>
   );
 }

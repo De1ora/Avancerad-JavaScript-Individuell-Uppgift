@@ -44,21 +44,21 @@ export default function Footer() {
     setToastOpen(false);
 
     setTimeout(() => {
-    if (email.trim() === '') {
-      setToastMessage('This field cannot be left blank');
-      setToastSeverity('error');
-      setToastOpen(true);
-    } else if (!email.includes('@')) {
-      setToastMessage('Please enter a valid email address');
-      setToastSeverity('error');
-      setToastOpen(true);
-    } else {
-      setToastMessage('Thanks for signing up for our newsletter! P.S. You won’t actually get any emails.. Ever.');
-      setToastSeverity('success');
-      setToastOpen(true);
-      setEmail('');
-    }
-  }, 100);
+      if (email.trim() === '') {
+        setToastMessage('This field cannot be left blank');
+        setToastSeverity('error');
+        setToastOpen(true);
+      } else if (!email.includes('@')) {
+        setToastMessage('Please enter a valid email address');
+        setToastSeverity('error');
+        setToastOpen(true);
+      } else {
+        setToastMessage('Thanks for signing up for our newsletter! P.S. You won’t actually get any emails.. Ever.');
+        setToastSeverity('success');
+        setToastOpen(true);
+        setEmail('');
+      }
+    }, 100);
   };
 
   const handleToastClose = (event, reason) => {
@@ -96,9 +96,9 @@ export default function Footer() {
             }}
           >
             <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
-              <NowAndNextIcon 
-              width='270'
-              height='100'
+              <NowAndNextIcon
+                width='270'
+                height='100'
               />
               <Typography
                 variant="body2"
