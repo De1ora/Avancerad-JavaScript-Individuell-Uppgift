@@ -4,6 +4,9 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -50,16 +53,34 @@ const NewsFormContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function CreateArticleForm(props) {
+    const [tag, setTag] = React.useState('');
+
+    const handleTagChange = (event) => {
+        setTag(event.target.value);
+    };
+
+    // Error states for form validation
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [nameError, setNameError] = React.useState(false);
     const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+    const [tagError, setTagError] = React.useState(false);
+    const [tagErrorMessage, setTagErrorMessage] = React.useState('');
 
     const validateInputs = () => {
         const email = document.getElementById('email');
         const name = document.getElementById('name');
 
         let isValid = true;
+
+        if(!tag) {
+            setTagError(true);
+            setTagErrorMessage('Please select a tag.');
+            isValid = false;
+        } else {
+            setTagError(false);
+            setTagErrorMessage('');
+        }
 
         if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
             setEmailError(true);
@@ -113,6 +134,21 @@ export default function CreateArticleForm(props) {
                         onSubmit={handleSubmit}
                         sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
                     >
+                        <FormControl error={tagError}>
+                            <InputLabel id="tag-label">Tag</InputLabel>
+                            <Select
+                            labelId="tag-label"
+                            id="tag"
+                            value={tag}
+                            label="Tag"
+                            onChange={handleTagChange}
+                            >
+                                <MenuItem value="global">Global</MenuItem>
+                                <MenuItem value="design">Design</MenuItem>
+                                <MenuItem value="environment">Environment</MenuItem>
+                                <MenuItem value="engineering">Engineering</MenuItem>
+                            </Select>
+                        </FormControl>
                         <FormControl>
                             <FormLabel htmlFor="name">Title</FormLabel>
                             <TextField

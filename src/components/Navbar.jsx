@@ -80,7 +80,7 @@ export default function Navbar() {
               />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <Button variant="text" color="info" size="small">
-                  Featured
+                  About
                 </Button>
                 <Button variant="text" color="info" size="small">
                   Contact Us
