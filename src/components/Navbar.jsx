@@ -6,7 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Dialog from '@mui/material/Dialog';
-import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
+import ColorModeIconDropdown from '../styles/ColorModeIconDropdown';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import NavbarDate from './NavbarDate';
