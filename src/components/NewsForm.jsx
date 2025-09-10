@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,8 +17,6 @@ import { styled } from '@mui/material/styles';
 import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
 
-// Buggar: 
-// - Överskott av funktioner som inte riktigt används, email validering, namn etc..
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -52,72 +52,114 @@ const NewsFormContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
-export default function CreateArticleForm(props) {
-    const [tag, setTag] = React.useState('');
+export default function CreateArticleForm({ onClose, addArticle }) {
+    // const [tag, setTag] = React.useState('');
 
-    const handleTagChange = (event) => {
-        setTag(event.target.value);
-    };
+    // const handleTagChange = (event) => {
+    // setTag(event.target.value);
+    // };
+
+    const [author, setAuthor] = useState('');
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
 
     // Error states for form validation
-    const [emailError, setEmailError] = React.useState(false);
-    const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-    const [nameError, setNameError] = React.useState(false);
-    const [nameErrorMessage, setNameErrorMessage] = React.useState('');
-    const [tagError, setTagError] = React.useState(false);
-    const [tagErrorMessage, setTagErrorMessage] = React.useState('');
+    const [authorError, setAuthorError] = useState(false);
+    const [titleError, setTitleError] = useState(false);
+    const [contentError, setContentError] = useState(false);
 
-    const validateInputs = () => {
-        const email = document.getElementById('email');
-        const name = document.getElementById('name');
+    // Error messages
+    const [authorErrorMessage, setAuthorErrorMessage] = useState('');
+    const [titleErrorMessage, setTitleErrorMessage] = useState('');
+    const [contentErrorMessage, setContentErrorMessage] = useState('');
 
-        let isValid = true;
-
-        if(!tag) {
-            setTagError(true);
-            setTagErrorMessage('Please select a tag.');
-            isValid = false;
-        } else {
-            setTagError(false);
-            setTagErrorMessage('');
+    const changeAuthor = (e) => {
+        const value = e.target.value;
+        setAuthor(value);
+        if (authorError && value.trim()) {
+            setAuthorError(false);
         }
-
-        if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-            setEmailError(true);
-            setEmailErrorMessage('Please enter a valid email address.');
-            isValid = false;
-        } else {
-            setEmailError(false);
-            setEmailErrorMessage('');
-        }
-
-        if (!name.value || name.value.length < 1) {
-            setNameError(true);
-            setNameErrorMessage('Name is required.');
-            isValid = false;
-        } else {
-            setNameError(false);
-            setNameErrorMessage('');
-        }
-
-        return isValid;
     };
 
-    const handleSubmit = (event) => {
-        if (nameError || emailError) {
-            event.preventDefault();
-            return;
+    const changeTitle = (e) => {
+        const value = e.target.value;
+        setTitle(value);
+        if (titleError && value.trim()) {
+            setTitleError(false);
         }
-        const data = new FormData(event.currentTarget);
-        console.log({
-            name: data.get('name'),
-            lastName: data.get('lastName'),
-            email: data.get('email'),
-        });
+    };
+
+    const changeContent = (e) => {
+        const value = e.target.value;
+        setContent(value);
+        if (contentError && value.trim()) {
+            setContentError(false);
+        }
+    };
+
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const trimmedAuthor = author.trim();
+        const trimmedTitle = title.trim();
+        const trimmedContent = content.trim();
+
+        let hasError = false;
+
+        if (!trimmedAuthor) {
+            setAuthorError(true);
+            setAuthorErrorMessage('Please enter an author name!');
+            hasError = true;
+        } else {
+            setAuthorError(false);
+            setAuthorErrorMessage('');
+        }
+
+        if (!trimmedTitle) {
+            setTitleError(true);
+            setTitleErrorMessage('Please enter a title!');
+            hasError = true;
+        } else {
+            setTitleError(false);
+            setTitleErrorMessage('');
+        }
+
+        if (!trimmedContent) {
+            setContentError(true);
+            setContentErrorMessage('Please enter some content!');
+            hasError = true;
+        } else {
+            setContentError(false);
+            setContentErrorMessage('');
+        }
+
+        if (hasError) return;
+
+        // Create a new article object
+        const newArticle = {
+            id: uuidv4(),
+            author: trimmedAuthor,
+            title: trimmedTitle,
+            content: trimmedContent,
+            timeStamp: new Date().toISOString(),
+        }
+
+        console.log('Article submitted');
+        addArticle(newArticle);
+        console.log(newArticle);
+
+        if (onClose) { onClose(); }
+
+        // Clear form fields
+        setAuthor("");
+        setTitle("");
+        setContent("");
     };
 
     return (
-        <AppTheme {...props}>
+        <AppTheme>
             <CssBaseline enableColorScheme />
             <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
             <NewsFormContainer direction="column" justifyContent="space-between">
@@ -132,9 +174,10 @@ export default function CreateArticleForm(props) {
                     <Box
                         component="form"
                         onSubmit={handleSubmit}
+                        noValidate // Så att inte defaultbrowser validering kommer upp!
                         sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
                     >
-                        <FormControl error={tagError}>
+                        {/* <FormControl error={tagError}>
                             <InputLabel id="tag-label">Tag</InputLabel>
                             <Select
                             labelId="tag-label"
@@ -148,54 +191,59 @@ export default function CreateArticleForm(props) {
                                 <MenuItem value="environment">Environment</MenuItem>
                                 <MenuItem value="engineering">Engineering</MenuItem>
                             </Select>
-                        </FormControl>
+                        </FormControl> */}
                         <FormControl>
-                            <FormLabel htmlFor="name">Title</FormLabel>
+                            <FormLabel htmlFor="title">Title</FormLabel>
                             <TextField
-                                autoComplete="name"
-                                name="name"
+                                autoComplete="off" // "title" exists for job titles, not article titles. Therefore, we turn off autocomplete.
+                                name="title"
                                 required
                                 fullWidth
-                                id="name"
+                                id="title"
+                                value={title}
+                                onChange={changeTitle}
                                 placeholder="Your article title"
-                                error={nameError}
-                                helperText={nameErrorMessage}
-                                color={nameError ? 'error' : 'primary'}
+                                error={titleError}
+                                helperText={titleErrorMessage}
+                                color={titleError ? 'error' : 'primary'}
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel htmlFor="email">Content</FormLabel>
+                            <FormLabel htmlFor="content">Content</FormLabel>
                             <TextField
                                 required
                                 fullWidth
-                                id="email"
+                                id="content"
+                                value={content}
+                                onChange={changeContent}
                                 placeholder="Type your article content here..."
-                                name="email"
-                                autoComplete="email"
+                                name="content"
+                                autoComplete="off"
                                 variant="outlined"
-                                error={emailError}
-                                helperText={emailErrorMessage}
+                                error={contentError}
+                                helperText={contentErrorMessage}
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel htmlFor="email">Author</FormLabel>
+                            <FormLabel htmlFor="author">Author</FormLabel>
                             <TextField
                                 required
                                 fullWidth
-                                id="email"
+                                id="author"
+                                value={author}
+                                onChange={changeAuthor}
                                 placeholder="Author name"
-                                name="email"
-                                autoComplete="email"
+                                name="author"
+                                autoComplete="name"
                                 variant="outlined"
-                                error={emailError}
-                                helperText={emailErrorMessage}
+                                error={authorError}
+                                helperText={authorErrorMessage}
                             />
                         </FormControl>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            onClick={validateInputs}
                         >
                             Publish Article
                         </Button>

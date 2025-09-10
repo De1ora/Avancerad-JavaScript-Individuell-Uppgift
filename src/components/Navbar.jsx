@@ -10,7 +10,7 @@ import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import NavbarDate from './NavbarDate';
-import CreateArticleForm from './AddNewsForm';
+import CreateArticleForm from './NewsForm';
 import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import NowAndNextIcon from './NowNextIcon';
