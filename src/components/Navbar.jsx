@@ -15,6 +15,8 @@ import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import NowAndNextIcon from './NowNextIcon';
 
+// Controls the form
+// Receives addArticle as a prop from Blog component and passes it down to CreateArticleForm component
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -47,7 +49,7 @@ const CloseButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Navbar() {
+export default function Navbar({ addArticle }) {
   const [showArticleForm, setShowArticleForm] = React.useState(false);
 
   const handleCreateArticleClick = () => {
@@ -124,7 +126,10 @@ export default function Navbar() {
           <CloseIcon />
         </CloseButton>
         <DialogContent sx={{ p: 0 }}>
-          <CreateArticleForm onClose={handleCloseArticleForm} />
+          <CreateArticleForm 
+          onClose={handleCloseArticleForm}
+          addArticle={addArticle}
+          />
         </DialogContent>
       </StyledDialog>
     </>

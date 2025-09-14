@@ -52,6 +52,7 @@ const NewsFormContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
+// Accepts and uses the addArticle function as a prop to add a new article
 export default function CreateArticleForm({ onClose, addArticle }) {
     // const [tag, setTag] = React.useState('');
 

@@ -179,6 +179,7 @@ Author.propTypes = {
   ).isRequired,
 };
 
+// Will receive and display the articles prop. "export default function Latest({ articles }) {"
 export default function Latest() {
   const [focusedCardIndex, setFocusedCardIndex] = React.useState(null);
 

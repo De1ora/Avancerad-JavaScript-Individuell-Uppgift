@@ -8,18 +8,19 @@ import Latest from './components/Latest';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
 
-export default function Blog(props) {
+// Receives articles and addArticle as props and passes them down to appropriate child components (Navbar, MainContent and Latest)
+export default function Blog({ articles, addArticle, ...props }) {
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
-      <Navbar />
+      <Navbar addArticle={addArticle} />
       <Container
         maxWidth="lg"
         component="main"
         sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
       >
-        <MainContent />
-        <Latest />
+        <MainContent articles={articles} />
+        <Latest articles={articles} />
       </Container>
       <Footer />
       <Toast />

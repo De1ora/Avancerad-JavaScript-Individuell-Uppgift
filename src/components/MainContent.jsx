@@ -16,6 +16,8 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
+import { apiGetArticles } from '../api/Articles';
+import { useState, useEffect } from 'react';
 
 // Will be replaced by data from DummyJSON!
 const cardData = [
