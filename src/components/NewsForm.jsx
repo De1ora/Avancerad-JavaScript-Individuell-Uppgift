@@ -152,7 +152,7 @@ export default function CreateArticleForm({ onClose, addArticle, showToast }) {
         console.log(newArticle);
 
         if (showToast) {
-            showToast('Article created successfully!', 'success');
+            showToast('Article published successfully!', 'success');
         }
 
         if (onClose) { onClose(); }
