@@ -121,7 +121,7 @@ export default function Latest({ articles }) {
       <Typography variant="h2" gutterBottom>
         Latest
       </Typography>
-      <Grid container spacing={8} columns={12} sx={{ my: 4 }}>
+      <Grid container spacing={2} columns={12} sx={{ my: 4 }}>
         {articles.map((article, index) => (
           <Grid key={index} size={{ xs: 12, sm: 6 }}>
             <Card
@@ -131,6 +131,7 @@ export default function Latest({ articles }) {
                 justifyContent: 'space-between',
                 gap: 1,
                 height: '100%',
+                '&:hover': { backgroundColor: 'transparent' }
               }}
             >
               {/*<Typography gutterBottom variant="caption" component="div">
