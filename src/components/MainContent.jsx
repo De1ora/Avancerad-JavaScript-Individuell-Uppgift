@@ -16,7 +16,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
-import { apiGetArticles } from '../api/Articles';
+import { apiGetArticles } from '../api/articles';
 import { useState, useEffect } from 'react';
 
 // Will be replaced by data from DummyJSON!
@@ -188,7 +188,7 @@ export default function MainContent() {
         setFocusedCardIndex(null);
     };
 
-    const handleClick = () => {
+    const handleClick = () => { // Denna ska senare bytas med React Routing till själva inlägget
         console.info('You clicked the filter chip.');
     };
 
@@ -236,7 +236,7 @@ export default function MainContent() {
                         overflow: 'auto',
                     }}
                 >
-                    <Chip onClick={handleClick} size="medium" label="All categories" />
+                    <Chip onClick={handleClick} size="medium" label="All categories" /> {/* Förbättringsförslag: Lägg till en funktion för att filtrera artiklar från taggarna. https://dummyjson.com/docs/posts#posts-tag */}
                     <Chip
                         onClick={handleClick}
                         size="medium"
@@ -284,9 +284,6 @@ export default function MainContent() {
                     }}
                 >
                     <Search />
-                    <IconButton size="small" aria-label="RSS feed">
-                        <RssFeedRoundedIcon />
-                    </IconButton>
                 </Box>
             </Box>
             <Grid container spacing={2} columns={12}>

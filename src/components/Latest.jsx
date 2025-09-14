@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 
 // Latest = Här hamnar User created posts!! (ingen bild då heller!)
+/* 
 const articleInfo = [
   {
     tag: 'Engineering',
@@ -91,6 +92,7 @@ const articleInfo = [
     authors: [{ name: 'Cindy Baker', avatar: '/static/images/avatar/3.jpg' }],
   },
 ];
+*/
 
 const StyledTypography = styled(Typography)({
   display: '-webkit-box',
@@ -137,7 +139,7 @@ const TitleTypography = styled(Typography)(({ theme }) => ({
   },
 }));
 
-function Author({ authors }) {
+function Author({ author, timeStamp }) {
   return (
     <Box
       sx={{
@@ -151,36 +153,33 @@ function Author({ authors }) {
       <Box
         sx={{ display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center' }}
       >
-        <AvatarGroup max={3}>
-          {authors.map((author, index) => (
-            <Avatar
-              key={index}
-              alt={author.name}
-              src={author.avatar}
-              sx={{ width: 24, height: 24 }}
-            />
-          ))}
-        </AvatarGroup>
+        <Avatar sx={{ width: 24, height: 24 }}>
+          {author.charAt(0).toUpperCase()}
+        </Avatar>
         <Typography variant="caption">
-          {authors.map((author) => author.name).join(', ')}
+          {author}
         </Typography>
       </Box>
-      <Typography variant="caption">July 14, 2021</Typography>
+      <Typography variant="caption">
+        {new Date(timeStamp).toLocaleDateString('en-US', {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
+      </Typography>
     </Box>
   );
 }
 
 Author.propTypes = {
-  authors: PropTypes.arrayOf(
-    PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
+  author: PropTypes.string.isRequired,
+  timeStamp: PropTypes.string.isRequired,
 };
 
 // Will receive and display the articles prop. "export default function Latest({ articles }) {"
-export default function Latest() {
+export default function Latest({ articles }) {
   const [focusedCardIndex, setFocusedCardIndex] = React.useState(null);
 
   const handleFocus = (index) => {
@@ -191,13 +190,26 @@ export default function Latest() {
     setFocusedCardIndex(null);
   };
 
+  if (!articles || articles.length === 0) {
+    return (
+      <div>
+        <Typography variant="h2" gutterBottom>
+          Latest
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ my: 4 }}>
+          No articles yet. Create your first article to see it here!
+        </Typography>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Typography variant="h2" gutterBottom>
         Latest
       </Typography>
       <Grid container spacing={8} columns={12} sx={{ my: 4 }}>
-        {articleInfo.map((article, index) => (
+        {articles.map((article, index) => (
           <Grid key={index} size={{ xs: 12, sm: 6 }}>
             <Box
               sx={{
@@ -208,9 +220,9 @@ export default function Latest() {
                 height: '100%',
               }}
             >
-              <Typography gutterBottom variant="caption" component="div">
+              {/*<Typography gutterBottom variant="caption" component="div">
                 {article.tag}
-              </Typography>
+              </Typography> */}
               <TitleTypography
                 gutterBottom
                 variant="h6"
@@ -226,10 +238,10 @@ export default function Latest() {
                 />
               </TitleTypography>
               <StyledTypography variant="body2" color="text.secondary" gutterBottom>
-                {article.description}
+                {article.content}
               </StyledTypography>
 
-              <Author authors={article.authors} />
+              <Author author={article.author} timeStamp={article.timeStamp} />
             </Box>
           </Grid>
         ))}
