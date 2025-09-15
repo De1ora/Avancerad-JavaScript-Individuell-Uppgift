@@ -67,8 +67,6 @@ const ClickableCard = styled(Card)(({ theme }) => ({
   transition: 'all 0.2s ease-in-out',
   '&:hover': { 
     backgroundColor: 'transparent',
-    transform: 'translateY(-2px)',
-    boxShadow: theme.shadows[4],
   },
 }));
 

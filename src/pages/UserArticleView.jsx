@@ -8,6 +8,9 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AppTheme from '../styles/AppTheme';
+import IconButton from '@mui/material/IconButton';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 export default function UserArticleView({ articles, ...props }) {
   const { id } = useParams(); // Get the article ID from the URL
@@ -31,7 +34,7 @@ export default function UserArticleView({ articles, ...props }) {
               Article Not Found
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-              The article you're looking for doesn't exist or may have been removed.
+              The article you’re looking for doesn’t exist or may have been removed.
             </Typography>
             <Button 
               variant="contained" 
@@ -118,6 +121,25 @@ export default function UserArticleView({ articles, ...props }) {
           >
             {article.content}
           </Typography>
+
+          {/* Like and Dislike buttons */}
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              justifyContent: 'flex-end', 
+              alignItems: 'center',
+              gap: 1,
+              mt: 4,
+              pt: 2
+            }}
+          >
+            <IconButton aria-label="like article">
+              <ThumbUpOffAltIcon />
+            </IconButton>
+            <IconButton aria-label="dislike article">
+              <ThumbDownOffAltIcon />
+            </IconButton>
+          </Box>
         </Box>
       </Container>
     </AppTheme>
