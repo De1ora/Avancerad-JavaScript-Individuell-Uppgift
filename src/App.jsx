@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Blog from './Blog'; // This imports the main Blog component
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UserArticleView from './pages/UserArticleView';
+import HomePage from './pages/HomePage'; // This imports the main 'Blog' component
 
 // Manages the articles state and handles localStorage operations
 function App() {
@@ -19,9 +21,23 @@ function App() {
     setArticles(updated);
     localStorage.setItem("articles", JSON.stringify(updated));
   }
+
   return (
     <div className="App">
-      <Blog articles={articles} addArticle={addArticle} /> {/* My App component is now passing down the articles and addArticle function as props */}
+      <Router>
+        <Routes>
+          {/* Home page route */}
+          <Route 
+            path="/" 
+            element={<HomePage articles={articles} addArticle={addArticle} />} 
+          />
+          {/* Individual article route - :id is a parameter */}
+          <Route 
+            path="/article/:id" 
+            element={<UserArticleView articles={articles} />} 
+          />
+        </Routes>
+      </Router>
     </div>
   );
 }

@@ -8,11 +8,14 @@ import Pagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
+import { useNavigate } from 'react-router-dom';
+
+// ANVÄND GLOBAL STATES / ZUSTAND FÖR LIKES & DISLIKES?
 
 const StyledTypography = styled(Typography)({
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
-  WebkitLineClamp: 2,
+  WebkitLineClamp: 2, // Limits to 2 lines! in the article card!
   overflow: 'hidden',
   textOverflow: 'ellipsis',
 });
@@ -54,6 +57,21 @@ const TitleTypography = styled(Typography)(({ theme }) => ({
   },
 }));
 
+const ClickableCard = styled(Card)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  gap: theme.spacing(1),
+  height: '100%',
+  cursor: 'pointer',
+  transition: 'all 0.2s ease-in-out',
+  '&:hover': { 
+    backgroundColor: 'transparent',
+    transform: 'translateY(-2px)',
+    boxShadow: theme.shadows[4],
+  },
+}));
+
 function Author({ author, timeStamp }) {
   return (
     <Box
@@ -91,9 +109,9 @@ Author.propTypes = {
   timeStamp: PropTypes.string.isRequired,
 };
 
-// Will receive and display the articles prop. "export default function Latest({ articles }) {"
 export default function Latest({ articles }) {
   const [focusedCardIndex, setFocusedCardIndex] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleFocus = (index) => {
     setFocusedCardIndex(index);
@@ -102,6 +120,10 @@ export default function Latest({ articles }) {
   const handleBlur = () => {
     setFocusedCardIndex(null);
   };
+
+  const handleArticleClick = (articleId) => {
+    navigate(`/article/${articleId}`);
+  }
 
   if (!articles || articles.length === 0) {
     return (
@@ -123,16 +145,12 @@ export default function Latest({ articles }) {
       </Typography>
       <Grid container spacing={2} columns={12} sx={{ my: 4 }}>
         {articles.map((article, index) => (
-          <Grid key={index} size={{ xs: 12, sm: 6 }}>
-            <Card
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                gap: 1,
-                height: '100%',
-                '&:hover': { backgroundColor: 'transparent' }
-              }}
+          <Grid key={article.id} size={{ xs: 12, sm: 6 }}>
+            <ClickableCard
+              onClick={() => handleArticleClick(article.id)}
+              tabIndex={0}
+              role='button'
+              aria-label={`Read article: ${article.title}`}
             >
               {/*<Typography gutterBottom variant="caption" component="div">
                 {article.tag}
@@ -156,7 +174,7 @@ export default function Latest({ articles }) {
               </StyledTypography>
 
               <Author author={article.author} timeStamp={article.timeStamp} />
-            </Card>
+            </ClickableCard>
           </Grid>
         ))}
       </Grid>
