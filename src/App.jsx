@@ -33,6 +33,13 @@ function App() {
     localStorage.setItem("articles", JSON.stringify(updated));
   }
 
+  // Function to delete an article
+  const deleteArticle = (articleId) => {
+    const updated = articles.filter(article => article.id !== articleId);
+    setArticles(updated);
+    localStorage.setItem("articles", JSON.stringify(updated));
+  }
+
   return (
     <div className="App">
       <Router>
@@ -45,7 +52,7 @@ function App() {
           {/* Individual article route - :id is a parameter */}
           <Route 
             path="/article/:id" 
-            element={<UserArticleView articles={articles} updateArticle={updateArticle} />} 
+            element={<UserArticleView articles={articles} updateArticle={updateArticle} deleteArticle={deleteArticle} />} 
           />
         </Routes>
       </Router>

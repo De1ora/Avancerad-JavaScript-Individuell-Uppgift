@@ -13,16 +13,33 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-export default function UserArticleView({ articles, updateArticle, ...props }) {
+export default function UserArticleView({ articles, updateArticle, deleteArticle, ...props }) {
     const { id } = useParams(); // Get the article ID from the URL
     const navigate = useNavigate(); // Hook to navigate programmatically
 
     // Find the article with the matching ID
     const article = articles.find(article => article.id === id);
 
-    const handleGoBack = () => {
-        navigate('/'); // Navigate back to home page
+    // Delete confirmation dialog state with Material-UI Dialog!
+    const [openDialog, setOpenDialog] = React.useState(false);
+
+    const handleGoBack = () => navigate('/'); // Navigate back to home page
+
+    const handleOpenDialog = () => setOpenDialog(true);
+    const handleCloseDialog = () => setOpenDialog(false);
+
+    const handleDeleteConfirm = () => {
+        deleteArticle(article.id);
+        setOpenDialog(false);
+
+        navigate('/'); // Navigate back to home page after deletion
     };
 
     // Handle Like button click
@@ -152,18 +169,47 @@ export default function UserArticleView({ articles, updateArticle, ...props }) {
                         }}
                     >
                         <IconButton
-                        onClick={handleLike}
-                        aria-label="like article">
+                            onClick={handleLike}
+                            aria-label="like article">
                             {article?.userReaction === "like" ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
                         </IconButton>
 
                         <IconButton
-                        onClick={handleDislike} 
-                        aria-label="dislike article"
+                            onClick={handleDislike}
+                            aria-label="dislike article"
                         >
                             {article?.userReaction === "dislike" ? <ThumbDownAltIcon /> : <ThumbDownOffAltIcon />}
                         </IconButton>
                     </Box>
+                    {/* Delete button */}
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+                    <Button
+                        onClick={handleOpenDialog}
+                        variant="outlined"
+                        sx={{ color: 'inherit', '&:hover': { backgroundColor: 'rgba(255, 36, 36, 0.5)' } }}
+                    >
+                        <DeleteOutlineIcon />
+                    </Button>
+                </Box>
+
+                {/* Confirmation dialog */}
+                <Dialog
+                    open={openDialog}
+                    onClose={handleCloseDialog}
+                >
+                    <DialogTitle>Delete Article</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Are you sure you want to delete this article?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleDeleteConfirm} color="error" autoFocus>
+                            Yes
+                        </Button>
+                        <Button onClick={handleCloseDialog}>No</Button>
+                    </DialogActions>
+                </Dialog>
                 </Box>
             </Container>
         </AppTheme>
