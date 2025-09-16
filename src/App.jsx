@@ -22,6 +22,17 @@ function App() {
     localStorage.setItem("articles", JSON.stringify(updated));
   }
 
+  // Function to update existing article for reactions
+  const updateArticle = (articleId, updates) => {
+    const updated = articles.map(article => 
+      article.id === articleId 
+        ? { ...article, ...updates }
+        : article
+    );
+    setArticles(updated);
+    localStorage.setItem("articles", JSON.stringify(updated));
+  }
+
   return (
     <div className="App">
       <Router>
@@ -34,7 +45,7 @@ function App() {
           {/* Individual article route - :id is a parameter */}
           <Route 
             path="/article/:id" 
-            element={<UserArticleView articles={articles} />} 
+            element={<UserArticleView articles={articles} updateArticle={updateArticle} />} 
           />
         </Routes>
       </Router>

@@ -145,6 +145,7 @@ export default function CreateArticleForm({ onClose, addArticle, showToast }) {
             title: trimmedTitle,
             content: trimmedContent,
             timeStamp: new Date().toISOString(),
+            userReaction: null
         }
 
         console.log('Article submitted');
