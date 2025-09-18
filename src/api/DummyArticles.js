@@ -15,13 +15,13 @@ export async function apiGetArticles() {
 }
 
 // En funktion för att hämta en specifik artikel från DummyJSON
-export async function apiGetArticleByID(apiArticleId) {
+export async function apiGetArticleByID(id) {
     try {
-        if (!apiArticleId) {
+        if (!id) {
             throw new Error('Article ID is required');
         }
 
-        const response = await fetch(`https://dummyjson.com/posts/${apiArticleId}`);
+        const response = await fetch(`https://dummyjson.com/posts/${id}`);
 
         if (!response.ok) {
             if (response.status === 404) {

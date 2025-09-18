@@ -2,28 +2,28 @@
  
 const STORAGE_KEY = 'dummyArticleReactions';
 
-export function getApiReaction(apiArticleId) {
+export function getApiReaction(id) {
     try {
         const savedApiReactions = localStorage.getItem(STORAGE_KEY);
         if (!savedApiReactions) return null;
 
         const apiReactions = JSON.parse(savedApiReactions);
-        return apiReactions[apiArticleId] || null;
+        return apiReactions[id] || null;
     } catch (error) {
         console.error('Error reading reactions from localStorage:', error);
         return null;
     }
 }
 
-export function setApiReaction(apiArticleId, apiReaction) {
+export function setApiReaction(id, apiReaction) {
     try {
         const savedApiReactions = localStorage.getItem(STORAGE_KEY);
         const apiReactions = savedApiReactions ? JSON.parse(savedApiReactions) : {};
 
         if (apiReaction === null) {
-            delete apiReactions[apiArticleId];
+            delete apiReactions[id];
         } else {
-            apiReactions[apiArticleId] = apiReaction;
+            apiReactions[id] = apiReaction;
         }
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(apiReactions));
@@ -52,9 +52,9 @@ export function clearAllApiReactions() {
     }
 }
 
-export function toggleApiReaction(apiArticleId, newApiReaction) {
-    const currentApiReaction = getApiReaction(apiArticleId);
+export function toggleApiReaction(id, newApiReaction) {
+    const currentApiReaction = getApiReaction(id);
     const finalApiReaction = currentApiReaction === newApiReaction ? null : newApiReaction;
-    setApiReaction(apiArticleId, finalApiReaction);
+    setApiReaction(id, finalApiReaction);
     return finalApiReaction;
 }

@@ -16,6 +16,8 @@ import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
 import { apiGetArticles } from '../api/DummyArticles';
 import { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate } from 'react-router-dom';
+import { Alert } from '@mui/material';
 
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -80,6 +82,7 @@ export default function MainContent() {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const handleFocus = (index) => {
         setFocusedCardIndex(index);
@@ -89,9 +92,9 @@ export default function MainContent() {
         setFocusedCardIndex(null);
     };
 
-    const handleClick = () => { // Denna ska senare bytas med React Routing till själva inlägget
-        console.info('You clicked the filter chip.');
-    };
+    const handleApiArticleClick = (id) => {
+        navigate(`/dummy-article/${id}`);
+    }
 
     // Fetch articles from DummyJSON API
     useEffect(() => {
@@ -189,9 +192,8 @@ export default function MainContent() {
                         overflow: 'auto',
                     }}
                 >
-                    <Chip onClick={handleClick} size="medium" label="All categories" /> {/* Förbättringsförslag: Lägg till en funktion för att filtrera artiklar från taggarna. https://dummyjson.com/docs/posts#posts-tag */}
+                    <Chip size="medium" label="All categories" /> {/* Förbättringsförslag: Lägg till en funktion för att filtrera artiklar från taggarna. https://dummyjson.com/docs/posts#posts-tag */}
                     <Chip
-                        onClick={handleClick}
                         size="medium"
                         label="Global"
                         sx={{
@@ -200,7 +202,6 @@ export default function MainContent() {
                         }}
                     />
                     <Chip
-                        onClick={handleClick}
                         size="medium"
                         label="Design"
                         sx={{
@@ -209,7 +210,6 @@ export default function MainContent() {
                         }}
                     />
                     <Chip
-                        onClick={handleClick}
                         size="medium"
                         label="Environment"
                         sx={{
@@ -218,7 +218,6 @@ export default function MainContent() {
                         }}
                     />
                     <Chip
-                        onClick={handleClick}
                         size="medium"
                         label="Engineering"
                         sx={{
@@ -246,6 +245,7 @@ export default function MainContent() {
                             variant="outlined"
                             onFocus={() => handleFocus(0)}
                             onBlur={handleBlur}
+                            onClick={() => handleApiArticleClick(articles[0].id)}
                             tabIndex={0}
                             className={focusedCardIndex === 0 ? 'Mui-focused' : ''}
                         >
@@ -277,6 +277,7 @@ export default function MainContent() {
                         variant="outlined"
                         onFocus={() => handleFocus(1)}
                         onBlur={handleBlur}
+                        onClick={() => handleApiArticleClick(articles[1].id)}
                         tabIndex={0}
                         className={focusedCardIndex === 1 ? 'Mui-focused' : ''}
                     >
@@ -308,6 +309,7 @@ export default function MainContent() {
                         variant="outlined"
                         onFocus={() => handleFocus(2)}
                         onBlur={handleBlur}
+                        onClick={() => handleApiArticleClick(articles[2].id)}
                         tabIndex={0}
                         className={focusedCardIndex === 2 ? 'Mui-focused' : ''}
                         sx={{ height: '100%' }}
@@ -340,6 +342,7 @@ export default function MainContent() {
                             variant="outlined"
                             onFocus={() => handleFocus(3)}
                             onBlur={handleBlur}
+                            onClick={() => handleApiArticleClick(articles[3].id)}
                             tabIndex={0}
                             className={focusedCardIndex === 3 ? 'Mui-focused' : ''}
                             sx={{ height: '100%' }}
@@ -372,6 +375,7 @@ export default function MainContent() {
                             variant="outlined"
                             onFocus={() => handleFocus(4)}
                             onBlur={handleBlur}
+                            onClick={() => handleApiArticleClick(articles[4].id)}
                             tabIndex={0}
                             className={focusedCardIndex === 4 ? 'Mui-focused' : ''}
                             sx={{ height: '100%' }}
@@ -407,6 +411,7 @@ export default function MainContent() {
                     <StyledCard
                         variant="outlined"
                         onFocus={() => handleFocus(5)}
+                        onClick={() => handleApiArticleClick(articles[5].id)}
                         onBlur={handleBlur}
                         tabIndex={0}
                         className={focusedCardIndex === 5 ? 'Mui-focused' : ''}

@@ -34,8 +34,8 @@ export default function DummyArticleView({ ...props }) {
             try {
                 setLoading(true);
                 setError(null);
-                const fetchApiArticle = await apiGetArticleByID(id);
-                setArticle(fetchApiArticle);
+                const apiArticleData = await apiGetArticleByID(id);
+                setArticle(apiArticleData);
 
                 // Load user reaction from localStorage using utility
                 const apiReaction = getApiReaction(id);
