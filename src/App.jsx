@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import DummyArticleView from './pages/DummyArticleView';
 import UserArticleView from './pages/UserArticleView';
 import HomePage from './pages/HomePage'; // This imports the main 'Blog' component
 
 // Manages the articles state and handles localStorage operations
 function App() {
   const [articles, setArticles] = useState([]);
-
-  // To add routing to individual DummyJSON articles ...
 
   // Load articles from localStorage on component mount
   useEffect(() => {
@@ -55,6 +54,11 @@ function App() {
           <Route 
             path="/article/:id" 
             element={<UserArticleView articles={articles} updateArticle={updateArticle} deleteArticle={deleteArticle} />} 
+          />
+          {/* DummyJSON individual article route */}
+          <Route
+          path="/dummy-article/:id"
+          element={<DummyArticleView/>}
           />
         </Routes>
       </Router>

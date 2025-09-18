@@ -150,9 +150,6 @@ export default function Latest({ articles }) {
               role='button'
               aria-label={`Read article: ${article.title}`}
             >
-              {/*<Typography gutterBottom variant="caption" component="div">
-                {article.tag}
-              </Typography> */}
               <TitleTypography
                 gutterBottom
                 variant="h6"
