@@ -7,6 +7,8 @@ import HomePage from './pages/HomePage'; // This imports the main 'Blog' compone
 function App() {
   const [articles, setArticles] = useState([]);
 
+  // To add routing to individual DummyJSON articles ...
+
   // Load articles from localStorage on component mount
   useEffect(() => {
     const stored = localStorage.getItem("articles");
