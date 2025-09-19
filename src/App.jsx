@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import DummyArticleView from './pages/DummyArticleView';
 import UserArticleView from './pages/UserArticleView';
 import HomePage from './pages/HomePage'; // This imports the main 'Blog' component
+import ToastProvider from './components/ToastProvider';
+import Toast from './components/Toast';
 
 // Manages the articles state and handles localStorage operations
 function App() {
@@ -62,6 +64,7 @@ function App() {
           />
         </Routes>
       </Router>
+      <ToastProvider />
     </div>
   );
 }

@@ -13,7 +13,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import NowAndNextIcon from './NowNextIcon';
-import Toast from './Toast';
+import useToastStore from '../store/ToastStore';
 
 function Copyright() {
   return (
@@ -30,9 +30,7 @@ function Copyright() {
 
 export default function Footer() {
   const [email, setEmail] = React.useState('');
-  const [toastOpen, setToastOpen] = React.useState(false);
-  const [toastMessage, setToastMessage] = React.useState('');
-  const [toastSeverity, setToastSeverity] = React.useState('success');
+  const addToast = useToastStore((state) => state.addToast);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -41,29 +39,23 @@ export default function Footer() {
   const handleSubscribe = (event) => {
     event.preventDefault();
 
-    setToastOpen(false);
-
-    setTimeout(() => {
-      if (email.trim() === '') {
-        setToastMessage('This field cannot be left blank');
-        setToastSeverity('error');
-        setToastOpen(true);
-      } else if (!email.includes('@')) {
-        setToastMessage('Please enter a valid email address');
-        setToastSeverity('error');
-        setToastOpen(true);
-      } else {
-        setToastMessage('Thanks for signing up for our newsletter! P.S. You won’t actually get any emails.. Ever.');
-        setToastSeverity('success');
-        setToastOpen(true);
-        setEmail('');
-      }
-    }, 100);
-  };
-
-  const handleToastClose = (event, reason) => {
-    if (reason === 'clickaway') return;
-    setToastOpen(false);
+    if (email.trim() === '') {
+      addToast({
+        message: 'This field cannot be left blank',
+        severity: 'error'
+      });
+    } else if (!email.includes('@')) {
+      addToast({
+        message: 'Please enter a valid email address',
+        severity: 'error'
+      });
+    } else {
+      addToast({
+        message: 'Thanks for signing up for our newsletter! P.S. You won’t actually get any emails.. Ever.',
+        severity: 'success'
+      });
+      setEmail('');
+    }
   };
 
   return (
@@ -275,12 +267,6 @@ export default function Footer() {
           </Stack>
         </Box>
       </Container>
-      <Toast
-        open={toastOpen}
-        onClose={handleToastClose}
-        severity={toastSeverity}
-        message={toastMessage}
-      />
     </React.Fragment>
   );
 }

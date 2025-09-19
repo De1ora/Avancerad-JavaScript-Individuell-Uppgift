@@ -12,7 +12,6 @@ export default function Toast({ open, onClose, message, severity = 'success', au
         sx={{ width: '100%' }}
       >
         {message}
-        {console.log('Toast severity:', severity)}
       </Alert>
     </Snackbar>
   );
