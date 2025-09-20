@@ -19,10 +19,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import useToastStore from '../store/ToastStore';
 
 export default function UserArticleView({ articles, updateArticle, deleteArticle, ...props }) {
     const { id } = useParams(); // Get the article ID from the URL
     const navigate = useNavigate(); // Hook to navigate programmatically
+    const addToast = useToastStore((state) => state.addToast);
 
     // Find the article with the matching ID
     const article = articles.find(article => article.id === id);
@@ -38,6 +40,11 @@ export default function UserArticleView({ articles, updateArticle, deleteArticle
     const handleDeleteConfirm = () => {
         deleteArticle(article.id);
         setOpenDialog(false);
+
+        addToast({
+            message: 'Article deleted successfully!',
+            severity: 'success'
+        })
 
         navigate('/'); // Navigate back to home page after deletion
     };
