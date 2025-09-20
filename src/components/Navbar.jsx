@@ -14,7 +14,6 @@ import CreateArticleForm from './NewsForm';
 import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import NowAndNextIcon from './NowNextIcon';
-import Toast from './Toast';
 
 // Controls the form
 // Receives addArticle as a prop from Blog component and passes it down to CreateArticleForm component
@@ -53,28 +52,12 @@ const CloseButton = styled(IconButton)(({ theme }) => ({
 export default function Navbar({ addArticle }) {
   const [showArticleForm, setShowArticleForm] = React.useState(false);
 
-  const [toastOpen, setToastOpen] = React.useState(false);
-  const [toastMessage, setToastMessage] = React.useState('');
-  const [toastSeverity, setToastSeverity] = React.useState('success');
-
   const handleCreateArticleClick = () => {
     setShowArticleForm(true);
   };
 
   const handleCloseArticleForm = () => {
     setShowArticleForm(false);
-  };
-
-  // Toast control functions
-  const showToast = (message, severity = 'success') => {
-    setToastMessage(message);
-    setToastSeverity(severity);
-    setToastOpen(true);
-  };
-
-  const handleToastClose = (event, reason) => { // Varför är event grå? Samma i Footer.jsx...
-    if (reason === 'clickaway') return;
-    setToastOpen(false);
   };
 
   return (
@@ -146,16 +129,9 @@ export default function Navbar({ addArticle }) {
           <CreateArticleForm
             onClose={handleCloseArticleForm}
             addArticle={addArticle}
-            showToast={showToast}
           />
         </DialogContent>
       </StyledDialog>
-      <Toast
-        open={toastOpen}
-        onClose={handleToastClose}
-        severity={toastSeverity}
-        message={toastMessage}
-      />
     </>
   );
 }

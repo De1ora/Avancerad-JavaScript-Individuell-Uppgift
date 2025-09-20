@@ -13,6 +13,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import AppTheme from '../styles/AppTheme';
 import ColorModeSelect from '../styles/ColorModeSelect';
+import useToastStore from '../store/ToastStore';
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -50,12 +51,8 @@ const NewsFormContainer = styled(Stack)(({ theme }) => ({
 }));
 
 // Accepts and uses the addArticle function as a prop to add a new article
-export default function CreateArticleForm({ onClose, addArticle, showToast }) {
-    // const [tag, setTag] = React.useState('');
-
-    // const handleTagChange = (event) => {
-    // setTag(event.target.value);
-    // };
+export default function CreateArticleForm({ onClose, addArticle }) {
+    const addToast = useToastStore((state) => state.addToast);
 
     const [author, setAuthor] = useState('');
     const [title, setTitle] = useState('');
@@ -149,9 +146,10 @@ export default function CreateArticleForm({ onClose, addArticle, showToast }) {
         addArticle(newArticle);
         console.log(newArticle);
 
-        if (showToast) {
-            showToast('Article published successfully!', 'success');
-        }
+        addToast({
+            message: 'Article published successfully!',
+            severity: 'success'
+        });
 
         if (onClose) { onClose(); }
 
@@ -180,21 +178,6 @@ export default function CreateArticleForm({ onClose, addArticle, showToast }) {
                         noValidate // Så att inte defaultbrowser validering kommer upp!
                         sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
                     >
-                        {/* <FormControl error={tagError}>
-                            <InputLabel id="tag-label">Tag</InputLabel>
-                            <Select
-                            labelId="tag-label"
-                            id="tag"
-                            value={tag}
-                            label="Tag"
-                            onChange={handleTagChange}
-                            >
-                                <MenuItem value="global">Global</MenuItem>
-                                <MenuItem value="design">Design</MenuItem>
-                                <MenuItem value="environment">Environment</MenuItem>
-                                <MenuItem value="engineering">Engineering</MenuItem>
-                            </Select>
-                        </FormControl> */}
                         <FormControl>
                             <FormLabel htmlFor="title">Title</FormLabel>
                             <TextField
