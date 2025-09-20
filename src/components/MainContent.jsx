@@ -106,6 +106,10 @@ export default function MainContent() {
                 setArticles(fetchedArticles.slice(0, 6)); // Limit to 6 articles for display
             } catch (error) {
                 setError(error.message);
+                addToast({
+                    message: 'Failed to load articles. Please try again.',
+                    severity: 'error'
+                });
             } finally {
                 setLoading(false);
             }

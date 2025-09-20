@@ -92,8 +92,6 @@ export default function CreateArticleForm({ onClose, addArticle }) {
         }
     };
 
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
