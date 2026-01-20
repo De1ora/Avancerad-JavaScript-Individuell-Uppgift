@@ -1,6 +1,6 @@
 import React from 'react';
 import Toast from './Toast';
-import useToastStore from '../store/ToastStore';
+import useToastStore from '../store/ToastStore.js';
 
 export default function ToastProvider() {
     const { toasts, removeToast } = useToastStore();

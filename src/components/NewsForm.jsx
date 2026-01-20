@@ -13,7 +13,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import AppTheme from '../styles/AppTheme';
 import ColorModeSelect from '../styles/ColorModeSelect';
-import useToastStore from '../store/ToastStore';
+import useToastStore from '../store/ToastStore.js';
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
