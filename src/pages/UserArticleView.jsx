@@ -19,7 +19,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import useToastStore from '../store/ToastStore';
+import useToastStore from '../store/ToastStore.js';
 
 export default function UserArticleView({ articles, updateArticle, deleteArticle, ...props }) {
     const { id } = useParams(); // Get the article ID from the URL
